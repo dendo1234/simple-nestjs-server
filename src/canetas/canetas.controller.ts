@@ -13,18 +13,19 @@ export class CanetasController {
   }
 
   @Get()
-  findAll() {
-    return this.canetasService.findAll();
+  async findAll() {
+    let canetas = this.canetasService.findAll();
+    return this.canetasService.imageFormat(await canetas);
   }
 
   @Get(':id')
-  findOne(@Param('id') name: string) {
-    return this.canetasService.findOne(name);
+  async findOne(@Param('id') name: string) {
+    let caneta = this.canetasService.findOne(name);
+    return this.canetasService.imageFormat([ await caneta ]);
   }
 
   @Patch(':id')
   update(@Param('id') name: string, @Body() updateCanetaDto: UpdateCanetaDto) {
-    console.log(updateCanetaDto)
     return this.canetasService.update(name, updateCanetaDto);
   }
 
