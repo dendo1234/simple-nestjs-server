@@ -14,13 +14,14 @@ export class CanetasController {
 
   @Get()
   async findAll() {
-    let canetas = this.canetasService.findAll();
-    return this.canetasService.imageFormat(await canetas);
+    const form = this.canetasService.getForm();
+    const canetas = await this.canetasService.findAll();
+    return form + this.canetasService.imageFormat(canetas);
   }
 
   @Get(':id')
   async findOne(@Param('id') name: string) {
-    let caneta = this.canetasService.findOne(name);
+    const caneta = this.canetasService.findOne(name);
     return this.canetasService.imageFormat([ await caneta ]);
   }
 

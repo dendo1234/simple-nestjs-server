@@ -3,5 +3,6 @@ import { CreateCanetaDto } from './create-caneta.dto';
 
 export class UpdateCanetaDto extends PartialType(CreateCanetaDto) {
     name?: string;
-    image: string;
+    image?: string;
+    price?: number;
 }
