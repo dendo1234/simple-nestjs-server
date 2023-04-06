@@ -6,6 +6,8 @@ import { CanetasModule } from './canetas/canetas.module';
 import { Caneta } from './canetas/entities/caneta.entity';
 import { Fabricante } from './canetas/entities/fabricante.entity';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [ 
@@ -16,12 +18,12 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'test',
-      entities: [Caneta, Fabricante],
+      entities: [Caneta, Fabricante, User],
       migrations: [],
       synchronize: true,
       //autoLoadEntities: true,
     }), 
-    CanetasModule, AuthModule
+    CanetasModule, AuthModule, UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
