@@ -8,17 +8,60 @@
 <body>
     <div class="login">
         <h1>Faça Login</h1>
-        <form action="/auth/login" method="post">
+        <form>
             <label>Username:</label>
-            <input type="text" name="username" title='username'>
+            <input type="text" name="username" id="username" title='username'>
             <br>
             <br>
             <label>Password:</label>
-            <input type="password" name="password" title="password">
+            <input type="password" name="password" id="password" title="password">
             <br>
             <br>
-            <input type="submit" value="Submit">
         </form>
+        <button type="button" onclick="submit('/canetas')">Submit</button>
+        <script>
+            function redirect(url) {
+                fetch(url, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        response.text().then(doc => document.body.innerHTML = doc)
+                    } else {
+                        console.log(response.error)
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            }
+
+            function submit(url) {
+                username = document.getElementById('username').value
+                password = document.getElementById('password').value
+
+                data = {
+                    username: username,
+                    password: password
+                }
+                console.log(data)
+                console.log(JSON.stringify(data))
+                fetch("/auth/login", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }).then((response) => response.json()).then((json) => { 
+                    sessionStorage.setItem('access_token', json.access_token);
+                    redirect(url);
+                })
+            }
+                
+            
+        </script>
     </div>
 </body>
 </html>
